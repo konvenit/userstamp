@@ -52,14 +52,14 @@ module Ddb #:nodoc:
           #you can change your link method
           # default 'belongs_to'
           class_attribute  :link_method
-         
+
           #polymorphic stampers
           class_attribute  :updater_type_attribute
           class_attribute  :creator_type_attribute
           class_attribute  :deleter_type_attribute
-          class_attribute  :polymorphic 
-          
-          self.stampable 
+          class_attribute  :polymorphic
+
+          self.stampable
         end
       end
 
@@ -101,17 +101,17 @@ module Ddb #:nodoc:
 
           self.polymorphic  = defaults[:polymorphic]
 
-          self.link_method = defaults[:link_method].to_sym  
-          
+          self.link_method = defaults[:link_method].to_sym
+
           class_eval do
             if self.polymorphic
-              send(self.link_method, :creator, :polymorphic => true, :foreign_key => self.creator_attribute)  
+              send(self.link_method, :creator, :polymorphic => true, :foreign_key => self.creator_attribute)
               send(self.link_method, :updater,:polymorphic => true, :foreign_key => self.updater_attribute)
             else
               send(self.link_method, :creator, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                :foreign_key => self.creator_attribute)     
+                :foreign_key => self.creator_attribute)
               send(self.link_method, :updater, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                 :foreign_key => self.updater_attribute)  
+                 :foreign_key => self.updater_attribute)
             end
 
             before_validation :set_updater_attribute
@@ -166,7 +166,7 @@ module Ddb #:nodoc:
 
         def set_creator_attribute
           return unless self.record_userstamp
-          if respond_to?(self.creator_attribute.to_sym) && has_stamper?
+          if respond_to?(self.creator_attribute.to_sym) && has_stamper? && self.send("#{self.creator_attribute}").blank?
             self.send("#{self.creator_attribute}=".to_sym, self.class.stamper_class.stamper)
             self.send("#{self.creator_type_attribute}=".to_sym, stamper_klass_type) if respond_to?(self.creator_type_attribute.to_sym) && self.polymorphic
           end
@@ -174,7 +174,7 @@ module Ddb #:nodoc:
 
         def set_updater_attribute
           return unless self.record_userstamp
-          if respond_to?(self.updater_attribute.to_sym) && has_stamper?
+          if respond_to?(self.updater_attribute.to_sym) && has_stamper? && self.send("#{self.updater_attribute}").blank?
             self.send("#{self.updater_attribute}=".to_sym, self.class.stamper_class.stamper)
             self.send("#{self.updater_type_attribute}=".to_sym, stamper_klass_type) if respond_to?(self.updater_type_attribute.to_sym) && self.polymorphic
           end
@@ -182,7 +182,7 @@ module Ddb #:nodoc:
 
         def set_deleter_attribute
           return unless self.record_userstamp
-          if respond_to?(self.deleter_attribute.to_sym) && has_stamper?
+          if respond_to?(self.deleter_attribute.to_sym) && has_stamper? && self.send("#{self.deleter_attribute}").blank?
             self.send("#{self.deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
             self.send("#{self.deleter_type_attribute}=".to_sym, stamper_klass_type) if respond_to?(self.deleter_type_attribute.to_sym) && self.polymorphic
             save unless defined?(Paranoia) # don't save now with Paranoia

@@ -7,7 +7,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "version"
 
 Gem::Specification.new do |s|
-  s.name = "stereosupersonic-userstamp"
+  s.name = "userstamp"
   s.version = Ddb::Userstamp::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -61,7 +61,7 @@ Gem::Specification.new do |s|
     "test/stamping_test.rb",
     "test/userstamp_controller_test.rb"
   ]
-  s.homepage = "https://github.com/stereosupersonic/userstamp"
+  s.homepage = "https://github.com/konvenit/userstamp"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.11"
   s.summary = "This Rails plugin extends ActiveRecord::Base to add automatic updating of created_by and updated_by attributes of your models in much the same way that the ActiveRecord::Timestamp module updates created_(at/on) and updated_(at/on) attributes."
