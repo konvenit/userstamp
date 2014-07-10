@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     "lib/stampable.rb",
     "lib/stamper.rb",
     "lib/userstamp.rb",
-    "stereosupersonic-userstamp.gemspec",
+    "userstamp.gemspec",
     "rdoc/classes/Ddb/Controller.html",
     "rdoc/classes/Ddb/Controller/Userstamp/InstanceMethods.html",
     "rdoc/classes/Ddb/Userstamp/MigrationHelper.html",

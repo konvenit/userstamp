@@ -3,18 +3,18 @@
 
 == Fork Details
 
-This is a fork of the magiclabs fork [https://github.com/magiclabs/userstamp] of the original userstamp plugin created by delynn [https://github.com/delynn/userstamp]. 
+This is a fork of the magiclabs fork [https://github.com/magiclabs/userstamp] of the original userstamp plugin created by delynn [https://github.com/delynn/userstamp].
 
 
-You can set the Stamper-Class in an initialzier 
+You can set the Stamper-Class in an initialzier
 
   Ddb::Userstamp.stamper_klass = Person
 
 
 To use this fork add the following to your application gemfile:
 
-  gem "stereosupersonic-userstamp",  :require => 'userstamp', :git => 'https://github.com/stereosupersonic/userstamp'
-	
+  gem "userstamp",  :require => 'userstamp', :git => 'https://github.com/konvenit/userstamp'
+
 
 == Overview
 
@@ -85,7 +85,7 @@ comes in. So in our example we'll want to use this method in both our User and P
     model_stamper
     stampable
   end
-  
+
   class Post < ActiveRecord::Base
     stampable
   end
@@ -99,7 +99,7 @@ User class. They are #stamper= and #stamper and look like this:
     else
       object
     end
-    
+
     Thread.current["#{self.to_s.downcase}_#{self.object_id}_stamper"] = object_stamper
   end
 
@@ -139,7 +139,7 @@ completely customized. Here's an quick example:
 == Upgrade from 1.x
  # config/environment.rb
  Ddb::Userstamp.compatibility_mode = true
-  
+
 {Example userstamp application}[http://github.com/delynn/userstamp_sample]
 
 == Running Unit Tests
